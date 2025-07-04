@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, ReactNode, useContext } from "react";
+import React, { createContext, useState, ReactNode, useContext, useEffect } from "react";
 type ImageSet = {
   thumbnail: string;
  
@@ -20,6 +20,8 @@ export type Product = {
 
 
 type CartContextType = {
+  currentBalance:number;
+  orderSubtotal:number;
   cart: Product[];
   modal:boolean;
   showModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,7 +44,8 @@ interface CartProviderProps {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
     const [modal, showModal] = useState(false);
-
+const[currentBalance,setCurrentBalance]=useState(200)
+const[orderSubtotal,setOrderSubtotal]=useState(0)
 
   const addToCart = (product: Product) => {
 
@@ -86,9 +89,11 @@ const decreaseAmount = (product: Product) => {
     }
   }
 };
+useEffect(()=>{setCurrentBalance(orderSubtotal-currentBalance)},[cart])
 
+useEffect(()=>{setOrderSubtotal(cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0))},[cart])
   return (
-    <CartContext.Provider value={{ cart, setCart, addToCart  , decreaseAmount , increaseAmount , removeFromCart , modal , showModal }}>
+    <CartContext.Provider value={{ cart, setCart, addToCart  , decreaseAmount , increaseAmount , removeFromCart , modal , showModal , currentBalance , orderSubtotal  }}>
       {children}
     </CartContext.Provider>
   );

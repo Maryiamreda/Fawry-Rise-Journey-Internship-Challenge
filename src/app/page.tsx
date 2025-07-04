@@ -12,7 +12,7 @@ export default function Home() {
     throw new Error('useCart must be used within a CartProvider');
   }
 
-  const { modal, showModal, cart ,setCart } = context;
+  const { modal, showModal, cart ,setCart , orderSubtotal , currentBalance } = context;
 
   return (
     <div className="md:flex gap-10 ">
@@ -64,7 +64,7 @@ export default function Home() {
               ))}
       <div className='flex justify-between items-center mt-4'>
       <p className='text-Rose-900 text-sm'>Order Total</p>
-      <h1 className='font-bold text-lg '>${cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0)}</h1>
+      <h1 className='font-bold text-lg '>${orderSubtotal}</h1>
     </div>
      <div className='flex justify-between items-center mt-4'>
       <p className='text-Rose-900 text-sm'>shipping fees </p>
@@ -72,8 +72,14 @@ export default function Home() {
     </div>
       <div className='flex justify-between items-center mt-4'>
       <p className='text-Rose-900 text-sm'>paid amount</p>
-      <h1 className='font-bold text-2xl '>${cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0)+50} </h1>
+      <h1 className='font-bold text-2xl '>${orderSubtotal+50} </h1>
     </div>
+   {currentBalance<=0?<div className="text-center text-Red mt-4">Your  current balance is not enough</div>: 
+   <div className='flex justify-between items-center mt-4'>
+      <p className='text-Rose-900 text-sm'> Your  current balance after payment </p>
+      <h1 className='font-bold text-2xl '>${currentBalance} </h1>
+
+    </div>}
             </div>
 
    
