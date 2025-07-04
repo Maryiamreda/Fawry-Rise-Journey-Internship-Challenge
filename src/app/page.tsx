@@ -22,6 +22,14 @@ export default function Home() {
       {modal && (
         <div className="modal-overlay ">
           <div className="bg-white p-6 rounded shadow-md text-center md:w-[35%] ">
+                {currentBalance-orderSubtotal<=0?
+                 <Image
+                src="/assets/images/icon-remove-item.svg"
+                alt="icon-remove-item"
+                width={30}
+                height={30}
+                className=""
+              /> :
               <Image
                 src="/assets/images/icon-order-confirmed.svg"
                 alt="icon-order-confirmed"
@@ -29,13 +37,15 @@ export default function Home() {
                 height={30}
                 className=""
               />
+              }
+              
               {currentBalance-orderSubtotal<=0?            
                 <h1 className="text-3xl font-semibold text-start mt-4">Error</h1>
 :              <h1 className="text-3xl font-semibold text-start mt-4">Order Confirmed </h1>
 }
             
 
-            <p className="mb-4 text-xs text-Rose-500 text-start">We hope you enjoy your food!</p>
+   <p className="mb-4 text-xs text-Rose-500 text-start">We hope you enjoy your food!</p>
 
             <div className="bg-Rose-50 rounded p-5">
               {cart.map((product, index) => (
