@@ -1,11 +1,9 @@
 "use client";
 
 import React, { createContext, useState, ReactNode, useContext } from "react";
-
 type ImageSet = {
   thumbnail: string;
-  mobile: string;
-  tablet: string;
+ 
   desktop: string;
 };
 
@@ -15,7 +13,12 @@ export type Product = {
   category: string;
   price: number;
   amount: number;
+  quantity: number;       
+  expirationDate: string | null; 
+  shipping: boolean;
+  weight: number | null;  
 };
+
 
 type CartContextType = {
   cart: Product[];
