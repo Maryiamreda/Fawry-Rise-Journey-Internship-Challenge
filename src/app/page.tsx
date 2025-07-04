@@ -29,7 +29,10 @@ export default function Home() {
                 height={30}
                 className=""
               />
-              <h1 className="text-3xl font-semibold text-start mt-4">Order Confirmed</h1>
+              {currentBalance-orderSubtotal<=0?            
+                <h1 className="text-3xl font-semibold text-start mt-4">Error</h1>
+:              <h1 className="text-3xl font-semibold text-start mt-4">Order Confirmed </h1>
+}
             
 
             <p className="mb-4 text-xs text-Rose-500 text-start">We hope you enjoy your food!</p>
@@ -74,7 +77,7 @@ export default function Home() {
       <p className='text-Rose-900 text-sm'>paid amount</p>
       <h1 className='font-bold text-2xl '>${orderSubtotal+50} </h1>
     </div>
-   {currentBalance<=0?<div className="text-center text-Red mt-4">Your  current balance is not enough</div>: 
+   {currentBalance-orderSubtotal<=0?<div className="text-center text-Red mt-4">Your  current balance is not enough: {currentBalance}</div>: 
    <div className='flex justify-between items-center mt-4'>
       <p className='text-Rose-900 text-sm'> Your  current balance after payment </p>
       <h1 className='font-bold text-2xl '>${currentBalance} </h1>

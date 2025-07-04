@@ -31,6 +31,7 @@ type CartContextType = {
   increaseAmount:(product: Product) => void;
   decreaseAmount:(product: Product) => void;
 removeFromCart:(product: Product) => void;
+checkout: () => void;
 
 
 };
@@ -59,7 +60,14 @@ const removeFromCart = (product: Product) => {
 const newcart=cart.filter((item)=>item.name!=product.name);
 setCart(newcart);
   };
+const checkout = () => {
+       showModal(true);
 
+  const paidAmount  = orderSubtotal + 50;
+  if (currentBalance >= paidAmount) {
+    setCurrentBalance(currentBalance - paidAmount);
+  } 
+};
   const increaseAmount = (product: Product) => {
     const updatedCart = cart.map(item => {
       if (item.name === product.name) {
@@ -89,11 +97,11 @@ const decreaseAmount = (product: Product) => {
     }
   }
 };
-useEffect(()=>{setCurrentBalance(orderSubtotal-currentBalance)},[cart])
+
 
 useEffect(()=>{setOrderSubtotal(cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0))},[cart])
   return (
-    <CartContext.Provider value={{ cart, setCart, addToCart  , decreaseAmount , increaseAmount , removeFromCart , modal , showModal , currentBalance , orderSubtotal  }}>
+    <CartContext.Provider value={{ cart, setCart, addToCart  , decreaseAmount , increaseAmount , removeFromCart , modal , showModal , currentBalance , orderSubtotal , checkout }}>
       {children}
     </CartContext.Provider>
   );

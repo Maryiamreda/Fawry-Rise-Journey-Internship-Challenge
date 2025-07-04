@@ -7,7 +7,7 @@ const YourCart = () => {
      if (!context) {
         throw new Error('useCart must be used within a CartProvider');
       }
-        const { cart , removeFromCart , showModal} = context;
+        const { cart , removeFromCart , checkout} = context;
     
 
 
@@ -64,7 +64,7 @@ const YourCart = () => {
                     /> 
                     <p className='text-sm text-Rose-900 py-2.5 rounded'>This is a <span className='font-semibold'>carbon-neutral</span> delivery</p>
     </div>
-    <div className='rounded-full bg-Red text-white text-sm py-2.5 cursor-pointer' onClick={() => showModal(true)}>Confirm Order</div>
+    <div className='rounded-full bg-Red text-white text-sm py-2.5 cursor-pointer' onClick={checkout}>Confirm Order</div>
         </div>
         }
    
