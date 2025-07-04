@@ -27,7 +27,7 @@ type CartContextType = {
   setCart: React.Dispatch<React.SetStateAction<Product[]>>;
   addToCart: (product: Product) => void;
   increaseAmount:(product: Product) => void;
-    decreaseAmount:(product: Product) => void;
+  decreaseAmount:(product: Product) => void;
 removeFromCart:(product: Product) => void;
 
 
@@ -60,7 +60,9 @@ setCart(newcart);
   const increaseAmount = (product: Product) => {
     const updatedCart = cart.map(item => {
       if (item.name === product.name) {
-        return { ...item, amount: item.amount + 1 };
+if (item.amount >= product.amount) {
+        return item; 
+      }        return { ...item, amount: item.amount + 1 };
       }
       return item;
     });
@@ -77,7 +79,9 @@ const decreaseAmount = (product: Product) => {
           : item
       );
       setCart(updatedCart);
-    } else {
+    } 
+
+    else  {
       removeFromCart(product);
     }
   }
