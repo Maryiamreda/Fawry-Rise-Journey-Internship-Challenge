@@ -11,7 +11,6 @@ export type Product = {
   category: string;
   price: number;
   amount: number;
-  quantity: number;       
   expirationDate: string | null; 
   shipping: boolean;
   weight: number | null;  
@@ -28,8 +27,7 @@ export const Products = [
     name: "Waffle with Berries",
     category: "Waffle",
     price: 6.50,
-    amount: 0,
-    quantity: 50,
+    amount: 20,
     expirationDate: "2025-08-01", // example
     shipping: true,
     weight: 0.5
@@ -43,7 +41,6 @@ export const Products = [
     category: "Crème Brûlée",
     price: 7.00,
     amount: 0,
-    quantity: 30,
     expirationDate: "2025-07-15",
     shipping: true,
     weight: 0.4
@@ -56,8 +53,7 @@ export const Products = [
     name: "Macaron Mix of Five",
     category: "Macaron",
     price: 8.00,
-    amount: 0,
-    quantity: 20,
+    amount: 80,
     expirationDate: "2025-07-20",
     shipping: true,
     weight: 0.3
@@ -70,8 +66,7 @@ export const Products = [
     name: "Mobile Scratch Card",
     category: "Electronics",
     price: 10.00,
-    amount: 0,
-    quantity: 100,
+    amount: 40,
     expirationDate: null,
     shipping: false,
     weight: null
@@ -84,8 +79,7 @@ export const Products = [
     name: "Smart TV",
     category: "Electronics",
     price: 250.00,
-    amount: 0,
-    quantity: 10,
+    amount: 40,
     expirationDate: null,
     shipping: true,
     weight: 15

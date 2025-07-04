@@ -27,7 +27,7 @@ const ProductsList = () => {
                className="border rounded  "
                          /> 
 
-{cart.some((item) => item.name === product.name) ?
+      {cart.some((item) => item.name === product.name) ?
   
                <div
                           className='
@@ -62,23 +62,37 @@ const ProductsList = () => {
                   onClick={()=>increaseAmount(product)}
                   >
 
-<div>
-     <Image
+       <div>
+                    <Image
                        src="/assets/images/icon-increment-quantity.svg"
                          alt={product.name}
                        width={10}
                       height={10}
                         className= "border rounded "
                          /> 
-</div>
+            </div>
 
 
                            
                           </div>
                           
-                       </div>  
+  </div>  
 :  
-                         <div
+        <div>
+          {product.amount==0 ?
+          <div
+           className='
+bg-black
+ cursor-pointer
+                          border rounded-2xl  border-Red 
+                          py-1.5 w-30 bg-white 
+                          text-Red text-xs
+                          flex justify-center items-center gap-2 
+                          relative bottom-4 left-7
+                          '
+          >Out Of Stock</div>
+           :
+               <div
                           className='
                           cursor-pointer
                           border rounded-2xl  border-Red 
@@ -89,22 +103,25 @@ const ProductsList = () => {
                           '
                            onClick={() => addToCart(product)}
                           > 
-                <Image
+                  <Image
                   src="/assets/images/icon-add-to-cart.svg"
                    alt={product.name}
                    width={20}
                   height={20}
-               className="border rounded  "
+                  className="border rounded  "
 
                          /> 
                           Add To Cart
-                          </div>  }
+                </div> 
+                          }
+        </div>                 }
 
                      
             </div>
             <div className='text-start '>
                     <h3 className='text-xs font-extralight '>{product.category}</h3>
                     <h2 className='text-sm font-semibold '>{product.name}</h2>
+                    <h2 className='text-sm font-light text-red-300 '>in stock: {product.amount}</h2>
                     <p className='font-semibold text-sm text-Red'>${product.price.toFixed(2)}</p>
             </div>
            

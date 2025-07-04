@@ -13,7 +13,6 @@ export type Product = {
   category: string;
   price: number;
   amount: number;
-  quantity: number;       
   expirationDate: string | null; 
   shipping: boolean;
   weight: number | null;  
