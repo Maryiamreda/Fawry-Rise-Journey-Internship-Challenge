@@ -62,9 +62,17 @@ export default function Home() {
                   </p>
                 </div>
               ))}
-               <div className='flex justify-between items-center mt-4'>
+      <div className='flex justify-between items-center mt-4'>
       <p className='text-Rose-900 text-sm'>Order Total</p>
-      <h1 className='font-bold text-2xl '>${cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0)}</h1>
+      <h1 className='font-bold text-lg '>${cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0)}</h1>
+    </div>
+     <div className='flex justify-between items-center mt-4'>
+      <p className='text-Rose-900 text-sm'>shipping fees </p>
+      <h1 className='font-bold text-lg '>$50</h1>
+    </div>
+      <div className='flex justify-between items-center mt-4'>
+      <p className='text-Rose-900 text-sm'>paid amount</p>
+      <h1 className='font-bold text-2xl '>${cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0)+50} </h1>
     </div>
             </div>
 
