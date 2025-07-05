@@ -8,6 +8,7 @@ type ImageSet = {
   desktop: string;
 };
 
+//every shippable item should provide its weight. 
 export type Product = {
   image: ImageSet;
   name: string;
@@ -68,8 +69,10 @@ const removeFromCart = (product: Product) => {
 const newcart=cart.filter((item)=>item.name!=product.name);
 setCart(newcart);
   };
+
+//Customers are able to do checkout with items in the cart. 
 const checkout = () => {
- showModal(true);
+showModal(true);
 const shippingItems: ShippingItem[] = cart
     .filter(Product => Product.shipping && Product.weight !== null)
     .map(Product => ({
@@ -85,7 +88,12 @@ const paidAmount  = orderSubtotal + 50;
   } 
 
 };
-  const increaseAmount = (product: Product) => {
+
+
+//Customers should be able to add a product to cart with 
+//specific quantity not more than the available product quantity. 
+//and able to increase it also
+const increaseAmount = (product: Product) => {
     const updatedCart = cart.map(item => {
       if (item.name === product.name) {
 if (item.amount >= product.amount) {
@@ -95,7 +103,7 @@ if (item.amount >= product.amount) {
       return item;
     });
     setCart(updatedCart);
-  };
+};
 const decreaseAmount = (product: Product) => {
   const foundItem = cart.find(item => item.name === product.name);
 
@@ -124,10 +132,10 @@ useEffect(()=>{setOrderSubtotal(cart.reduce((accumulator, item) => accumulator +
 
 //Shipping Service which accepts items that need to be shipped 
 class ShippingService {
-  static processOurShippings(items: ShippingItem[]) {
-    console.log('items need shipping', items.map(item => ({
-      name: item.getName(),
-      weight: item.getWeight()
+  static processOurShippings(products: ShippingItem[]) {
+    console.log('items need shipping', products.map(product => ({
+      name: product.getName(),
+      weight: product.getWeight()
     })));
   }
 }

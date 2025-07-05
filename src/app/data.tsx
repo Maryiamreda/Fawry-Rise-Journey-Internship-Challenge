@@ -1,4 +1,4 @@
-
+// Define products with name, price and quantity.
 type ImageSet = {
   thumbnail: string;
  
@@ -11,6 +11,8 @@ export type Product = {
   category: string;
   price: number;
   amount: number;
+  //Some products may expire like Cheese and Biscuits while 
+//others may not expire like TV and Mobile.
   expirationDate: string | null; 
   shipping: boolean;
   weight: number | null;  
@@ -18,6 +20,8 @@ export type Product = {
 
 export type ProductType = Product[];
 
+//examples that prove your code is working as 
+//expected covering all use cases
 export const Products = [
    {
     image: {

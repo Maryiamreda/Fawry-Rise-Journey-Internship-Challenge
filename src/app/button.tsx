@@ -29,7 +29,7 @@ const Button = ({ product }: { product: Product }) => {
         const { cart  } = context;
   return (
     <div>
-      
+ {/* Covering all corner cases      */}
  {cart.some((item) => item.name === product.name) ?
   
         <InCartButton product={product} />    
