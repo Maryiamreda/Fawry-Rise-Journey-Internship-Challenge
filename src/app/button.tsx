@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import { Products } from "./data";
 import Image from "next/image";
 import { CartContext } from './context';
+ 
 type ImageSet = {
   thumbnail: string;
  
@@ -26,13 +27,65 @@ const [date ,setDate]=useState(new Date().getTime())
      if (!context) {
         throw new Error('useCart must be used within a CartProvider');
       }
-        const { addToCart ,cart ,decreaseAmount , increaseAmount } = context;
+        const { addToCart ,cart  } = context;
   return (
     <div>
       
  {cart.some((item) => item.name === product.name) ?
   
-               <div
+        <InCartButton product={product} />    
+:  
+        <div>
+      {product.amount==0 ?
+         <OutOfStockButton/>
+           :
+              <div>
+                {product.expirationDate && new Date(product.expirationDate) < new Date()?
+               <ExpiredButton/>
+                : <AddToCartButton  product={product} /> }
+              </div>
+                          }
+        </div>        }
+    </div>
+  );
+}
+
+export default Button;
+
+const OutOfStockButton = () => {
+  return  <div
+           className='
+                          bg-gray-500
+                          border rounded-2xl 
+                          py-1.5 w-30 
+                          text-gray-400 text-xs
+                          flex justify-center items-center gap-2 
+                          relative bottom-4 left-7
+                          '
+          >Out Of Stock</div>
+        }
+
+        const ExpiredButton=()=>{
+return  <div 
+                 className='
+                          bg-gray-500
+                          border rounded-2xl 
+                          py-1.5 w-30 
+                          text-gray-400 text-xs
+                          flex justify-center items-center gap-2 
+                          relative bottom-4 left-7
+                          '
+                >exceed expiry date</div>
+        }
+
+const InCartButton=({ product }: { product: Product })=>{
+    const context = useContext(CartContext);
+     if (!context) {
+        throw new Error('useCart must be used within a CartProvider');
+      }
+          const { cart ,decreaseAmount , increaseAmount } = context;
+
+          return    <div
                           className='
                           cursor-pointer
                           border rounded-2xl  border-Red 
@@ -80,33 +133,14 @@ const [date ,setDate]=useState(new Date().getTime())
                           </div>
                           
   </div>  
-:  
-        <div>
-      {product.amount==0 ?
-          <div
-           className='
-                          bg-gray-500
-                          border rounded-2xl 
-                          py-1.5 w-30 
-                          text-gray-400 text-xs
-                          flex justify-center items-center gap-2 
-                          relative bottom-4 left-7
-                          '
-          >Out Of Stock</div>
-           :
-              <div>
-                {product.expirationDate && new Date(product.expirationDate) < new Date()?
-                <div 
-                 className='
-                          bg-gray-500
-                          border rounded-2xl 
-                          py-1.5 w-30 
-                          text-gray-400 text-xs
-                          flex justify-center items-center gap-2 
-                          relative bottom-4 left-7
-                          '
-                >exceed expiry date</div>
-                : <div
+        }
+const AddToCartButton =({ product }: { product: Product })=>{
+     const context = useContext(CartContext);
+     if (!context) {
+        throw new Error('useCart must be used within a CartProvider');
+      }
+        const { addToCart} = context;
+  return <div
                           className='
                           cursor-pointer
                           border rounded-2xl  border-Red 
@@ -126,17 +160,5 @@ const [date ,setDate]=useState(new Date().getTime())
 
                          /> 
                           Add To Cart
-                </div> }
-              </div>
-                          }
-        </div>                 }
-
-                
-
-
-
-    </div>
-  );
+                </div>
 }
-
-export default Button;
