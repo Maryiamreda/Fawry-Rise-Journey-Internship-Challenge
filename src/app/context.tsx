@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useState, ReactNode, useContext, useEffect } from "react";
+import { Products } from "./data";
 type ImageSet = {
   thumbnail: string;
  
@@ -42,11 +43,18 @@ interface CartProviderProps {
   children: ReactNode;
 }
 
+
+// Interface for ShippingService 
+interface ShippingItem {
+  getName(): string;
+  getWeight(): number;
+}
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
     const [modal, showModal] = useState(false);
 const[currentBalance,setCurrentBalance]=useState(200)
 const[orderSubtotal,setOrderSubtotal]=useState(0)
+
 
   const addToCart = (product: Product) => {
 
@@ -61,12 +69,21 @@ const newcart=cart.filter((item)=>item.name!=product.name);
 setCart(newcart);
   };
 const checkout = () => {
-       showModal(true);
-
-  const paidAmount  = orderSubtotal + 50;
+ showModal(true);
+const shippingItems: ShippingItem[] = cart
+    .filter(Product => Product.shipping && Product.weight !== null)
+    .map(Product => ({
+      getName: () => Product.name,
+      getWeight: () => Product.weight || 0
+    }));
+     if (shippingItems.length > 0) {
+    ShippingService.processOurShippings(shippingItems);
+  }
+const paidAmount  = orderSubtotal + 50;
   if (currentBalance >= paidAmount) {
     setCurrentBalance(currentBalance - paidAmount);
   } 
+
 };
   const increaseAmount = (product: Product) => {
     const updatedCart = cart.map(item => {
@@ -100,6 +117,20 @@ const decreaseAmount = (product: Product) => {
 
 
 useEffect(()=>{setOrderSubtotal(cart.reduce((accumulator, item) => accumulator + item.price * item.amount, 0))},[cart])
+
+
+
+
+
+//Shipping Service which accepts items that need to be shipped 
+class ShippingService {
+  static processOurShippings(items: ShippingItem[]) {
+    console.log('items need shipping', items.map(item => ({
+      name: item.getName(),
+      weight: item.getWeight()
+    })));
+  }
+}
   return (
     <CartContext.Provider value={{ cart, setCart, addToCart  , decreaseAmount , increaseAmount , removeFromCart , modal , showModal , currentBalance , orderSubtotal , checkout }}>
       {children}
