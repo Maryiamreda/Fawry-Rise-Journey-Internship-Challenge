@@ -27,8 +27,8 @@ export const Products = [
     name: "Waffle with Berries",
     category: "Waffle",
     price: 6.50,
-    amount: 20,
-    expirationDate: "2025-08-01", // example
+    amount: 0,
+    expirationDate: "08/21/2025", 
     shipping: true,
     weight: 0.5
   },
@@ -40,8 +40,8 @@ export const Products = [
     name: "Vanilla Bean Crème Brûlée",
     category: "Crème Brûlée",
     price: 7.00,
-    amount: 0,
-    expirationDate: "2025-07-15",
+    amount: 10,
+    expirationDate: "06/21/2025",
     shipping: true,
     weight: 0.4
   },
@@ -54,7 +54,7 @@ export const Products = [
     category: "Macaron",
     price: 8.00,
     amount: 80,
-    expirationDate: "2025-07-20",
+    expirationDate: "06/21/2026",
     shipping: true,
     weight: 0.3
   },

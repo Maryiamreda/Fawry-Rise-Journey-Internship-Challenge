@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Products } from "./data";
 import Image from "next/image";
 import { CartContext } from './context';
@@ -21,6 +21,7 @@ export type Product = {
   weight: number | null;  
 };
 const Button = ({ product }: { product: Product }) => {
+const [date ,setDate]=useState(new Date().getTime())
      const context = useContext(CartContext);
      if (!context) {
         throw new Error('useCart must be used within a CartProvider');
@@ -81,10 +82,10 @@ const Button = ({ product }: { product: Product }) => {
   </div>  
 :  
         <div>
-          {product.amount==0 ?
+      {product.amount==0 ?
           <div
            className='
-                         bg-gray-500
+                          bg-gray-500
                           border rounded-2xl 
                           py-1.5 w-30 
                           text-gray-400 text-xs
@@ -93,7 +94,19 @@ const Button = ({ product }: { product: Product }) => {
                           '
           >Out Of Stock</div>
            :
-               <div
+              <div>
+                {product.expirationDate && new Date(product.expirationDate) < new Date()?
+                <div 
+                 className='
+                          bg-gray-500
+                          border rounded-2xl 
+                          py-1.5 w-30 
+                          text-gray-400 text-xs
+                          flex justify-center items-center gap-2 
+                          relative bottom-4 left-7
+                          '
+                >exceed expiry date</div>
+                : <div
                           className='
                           cursor-pointer
                           border rounded-2xl  border-Red 
@@ -113,7 +126,8 @@ const Button = ({ product }: { product: Product }) => {
 
                          /> 
                           Add To Cart
-                </div> 
+                </div> }
+              </div>
                           }
         </div>                 }
 
