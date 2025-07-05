@@ -22,12 +22,11 @@ export type Product = {
   weight: number | null;  
 };
 const Button = ({ product }: { product: Product }) => {
-const [date ,setDate]=useState(new Date().getTime())
      const context = useContext(CartContext);
      if (!context) {
         throw new Error('useCart must be used within a CartProvider');
       }
-        const { addToCart ,cart  } = context;
+        const { cart  } = context;
   return (
     <div>
       
@@ -51,6 +50,9 @@ const [date ,setDate]=useState(new Date().getTime())
 }
 
 export default Button;
+
+
+
 
 const OutOfStockButton = () => {
   return  <div
